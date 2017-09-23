@@ -28,6 +28,17 @@ python3 -m http.server
 
 Browse http://localhost:8000/
 
+## Use elm-live
+
+To make and live-reload on change, do:
+
+```shell
+elm-live src/Main.elm --output=elm.js --open --pushstate
+```
+
+You must have
+[elm-live](https://github.com/tomekwi/elm-live) installed.
+
 ## Discussion
 
 The calendar component generates a JS `date-changed` event each time the user selects a date.
@@ -42,3 +53,5 @@ Running `make dist` will generate a "dist" directory with the minimal static web
 This started as a direct copy of a gist by Peter Damoc (@pdamoc) and relates to
 [a discussion on the elm-discuss list](https://groups.google.com/forum/#!topic/elm-discuss/8Q2xwRh6UYc)
 
+Forked from https://github.com/fredcy/elm-polymer-calendar
+Updated for elm 0.18

@@ -1,21 +1,21 @@
 module Main exposing (..)
 
 import Html exposing (..)
-import Html.App as App
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import Task
 import Date exposing (Date)
 import Time exposing (Time)
-import Json.Decode as Json
+import Json.Decode as Json exposing (andThen, string)
+import Json.Decode.Extra exposing (fromResult)
 import Date.Format
 import String
 import JsonDateDecode
 
 
-main : Program Never
+main : Program Never Model Msg
 main =
-    App.program
+    Html.program
         { init = init
         , view = view
         , update = \msg m -> ( update msg m, Cmd.none )
@@ -49,7 +49,8 @@ type Msg
 
 nowCmd : (Date -> a) -> Cmd a
 nowCmd tagger =
-    Task.perform (\_ -> tagger (Date.fromTime 0)) tagger Date.now
+    -- Task.perform (\_ -> tagger (Date.fromTime 0)) tagger Date.now
+    Task.perform tagger Date.now
 
 
 addTime : Time -> Date -> Date
@@ -87,7 +88,7 @@ detailValue =
 
 dateValue : Json.Decoder Date
 dateValue =
-    Json.customDecoder detailValue JsonDateDecode.toDate
+    string |> andThen (Date.fromString >> fromResult)
 
 
 view : Model -> Html Msg

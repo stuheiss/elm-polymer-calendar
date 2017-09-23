@@ -8,6 +8,9 @@ build: elm.js
 elm.js: src/Main.elm src/JsonDateDecode.elm src/Native/JsonDateDecode.js
 	elm make src/Main.elm --yes --output=elm.js
 
+clean:
+	rm -rf bower_components elm-stuff
+
 DISTDIR = pages
 
 dist:
